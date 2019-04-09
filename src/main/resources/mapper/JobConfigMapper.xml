@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laiai.job.mapper.JobConfigMapper">
+  <resultMap id="BaseResultMap" type="com.laiai.job.model.JobConfig">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="cron_time" jdbcType="VARCHAR" property="cronTime" />
+    <result column="full_entity" jdbcType="VARCHAR" property="fullEntity" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="job_status" jdbcType="TINYINT" property="jobStatus" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+  </resultMap>
+</mapper>
