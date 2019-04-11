@@ -38,12 +38,9 @@ public class Swagger2 {
 	public Docket createRestApi() throws UnknownHostException {
 
     	ParameterBuilder tokenPar = new ParameterBuilder();
-    	List<Parameter> pars = new ArrayList<Parameter>();
-        tokenPar.name("X-Access-Token").description("令牌").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        ParameterBuilder tokenPar1 = new ParameterBuilder();
-        tokenPar1.name("client").description("客户端").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
-        pars.add(tokenPar.build());
-        pars.add(tokenPar1.build());
+    	List<Parameter> pars = new ArrayList<>();
+		/*tokenPar.name("client").description("客户端").modelRef(new ModelRef("string")).parameterType("header").required(false).build();
+        pars.add(tokenPar.build());*/
 
     	return new Docket(DocumentationType.SWAGGER_2).host(swaggerHost).apiInfo(apiInfo()).select()
     	.apis(basePackage(ProjectConstant.BASE_PACKAGE)).paths(PathSelectors.any())
@@ -52,8 +49,7 @@ public class Swagger2 {
 
 	@SuppressWarnings("deprecation")
 	private ApiInfo apiInfo() {
-		return new ApiInfoBuilder().title("来艾健康科技").description("").termsOfServiceUrl("").contact("devloper@laiai.com")
-				.version("1.0").build();
+		return new ApiInfoBuilder().title("Springboot-quartz测试项目").description("").termsOfServiceUrl("").contact("LittleYellowMonster").version("1.0").build();
 	}
 
 
