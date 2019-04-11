@@ -1,77 +1,35 @@
 package com.laiai.job.jobs;
 
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-
-import javax.persistence.Column;
+import com.laiai.job.model.JobConfig;
+import com.laiai.job.service.JobConfigService;
+import org.quartz.Job;
+import org.quartz.JobExecutionContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author zengyou
  * @Description:
  * @date 2019/4/8 13:12
  */
-@Data
-public class MyJob {
+@Component
+public class MyJob implements Job {
+    @Autowired
+    private JobConfigService jobConfigService;
 
-    /**
-     * 编号
-     */
-    @ApiModelProperty(value = "编号")
-    private Long id;
-
-    /**
-     * cron时间表达式
-     */
-    @Column(name = "cron_time")
-    @ApiModelProperty(value = "cron时间表达式")
-    private String cronTime;
-
-    /**
-     * 映射实体
-     */
-    @Column(name = "full_entity")
-    @ApiModelProperty(value = "映射实体")
-    private String fullEntity;
-
-    /**
-     * 分组名称
-     */
-    @Column(name = "group_name")
-    @ApiModelProperty(value = "分组名称")
-    private String groupName;
-
-    /**
-     * 定时任务名称
-     */
-    @Column(name = "job_name")
-    @ApiModelProperty(value = "定时任务名称")
-    private String jobName;
-
-    /**
-     * 定时任务状态 默认开启 0:关闭 1:开启
-     */
-    @Column(name = "job_status")
-    @ApiModelProperty(value = "定时任务状态 默认开启 0:关闭 1:开启")
-    private Byte jobStatus;
-
-    /**
-     * 定时任务说明
-     */
-    @ApiModelProperty(value = "定时任务说明")
-    private String remarks;
-
-    /**
-     * 创建时间
-     */
-    @Column(name = "gmt_create")
-    @ApiModelProperty(value = "创建时间")
-    private Date gmtCreate;
-
-    /**
-     * 修改时间
-     */
-    @Column(name = "gmt_modified")
-    @ApiModelProperty(value = "修改时间")
-    private Date gmtModified;
-}
+    public void execute(JobExecutionContext context) {
+        System.out.println();
+        System.out.println();
+        //是哪个定时任务配置在执行，可以看到，因为在前面我们将描述设置为了配置类的toString结果
+        System.out.println(context.getJobDetail().getDescription());
+        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(this.toString() + ":" + f.format(new Date()) +
+                "正在执行Job executing...");
+        List<JobConfig> configs = jobConfigService.findAllByStatus((byte)1);
+        for (JobConfig config : configs) {
+            System.out.println(config.toString());
+        }
+    }}

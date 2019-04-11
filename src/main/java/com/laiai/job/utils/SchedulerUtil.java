@@ -26,7 +26,7 @@ public class SchedulerUtil {
     private static SchedulerFactoryBean schedulerFactoryBean = new SchedulerFactoryBean();
 
     static {
-            //加载指定路径的配置
+        //加载指定路径的配置
         schedulerFactoryBean.setConfigLocation(new ClassPathResource("quartz.properties"));
     }
 
@@ -55,8 +55,7 @@ public class SchedulerUtil {
      * @param context
      * @return
      */
-    public static Boolean modifyScheduler(JobConfig oldConfig, JobConfig config,
-                                          ApplicationContext context) {
+    public static Boolean modifyScheduler(JobConfig oldConfig, JobConfig config, ApplicationContext context) {
         if (oldConfig == null || config == null || context == null) {
             return false;
         }
@@ -84,8 +83,7 @@ public class SchedulerUtil {
      * @return
      * @throws SchedulerException
      */
-    private static Boolean delete(String oldName, String oldGroupName)
-            throws SchedulerException {
+    private static Boolean delete(String oldName, String oldGroupName) throws SchedulerException {
         TriggerKey key = new TriggerKey(oldName, oldGroupName);
         Scheduler oldScheduler = schedulerFactory.getScheduler();
         //根据TriggerKey获取trigger是否存在，如果存在则根据key进行删除操作
@@ -117,7 +115,7 @@ public class SchedulerUtil {
             if (jobDetail == null) {
                 return false;
             }
-            Trigger trigger = createCronTrigger(jobDetail,time, name, groupName, description);
+            Trigger trigger = createCronTrigger(jobDetail, time, name, groupName, description);
             if (trigger == null) {
                 return false;
             }
@@ -152,7 +150,7 @@ public class SchedulerUtil {
      * @param description
      * @return
      */
-    public static JobDetail createJobDetail(Class clazz, String name,String groupName, String description) {
+    public static JobDetail createJobDetail(Class clazz, String name, String groupName, String description) {
         jobDetailFactory.setJobClass(clazz);
         jobDetailFactory.setName(name);
         jobDetailFactory.setGroup(groupName);
@@ -172,8 +170,7 @@ public class SchedulerUtil {
      * @param description
      * @return
      */
-    public static CronTrigger createCronTrigger(JobDetail job, String time,
-                                                String name, String groupName, String description) {
+    public static CronTrigger createCronTrigger(JobDetail job, String time, String name, String groupName, String description) {
         factoryBean.setName(name);
         factoryBean.setJobDetail(job);
         factoryBean.setCronExpression(time);

@@ -1,6 +1,5 @@
 package com.laiai.job.configurer;
 
-
 import org.quartz.spi.TriggerFiredBundle;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
@@ -10,13 +9,15 @@ import org.springframework.scheduling.quartz.SpringBeanJobFactory;
 
 /**
  * Adds auto-wiring support to quartz jobs.
+ *
  * @see "https://gist.github.com/jelies/5085593"
  */
 public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory implements ApplicationContextAware {
 
     private transient AutowireCapableBeanFactory beanFactory;
 
-    public void setApplicationContext(ApplicationContext applicationContext)throws BeansException {
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+
         beanFactory = applicationContext.getAutowireCapableBeanFactory();
     }
 
@@ -27,4 +28,5 @@ public final class AutoWiringSpringBeanJobFactory extends SpringBeanJobFactory i
         beanFactory.autowireBean(job);
         return job;
     }
+
 }

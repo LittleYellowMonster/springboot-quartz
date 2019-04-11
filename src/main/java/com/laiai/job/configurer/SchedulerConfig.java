@@ -29,7 +29,7 @@ public class SchedulerConfig {
         StdSchedulerFactory stdSchedulerFactory = new StdSchedulerFactory();
         //获取JobConfig集合
         List<JobConfig> configs = jobConfigService.findAllByStatus((byte) 1);
-        logger.debug("Setting the Scheduler up");
+        logger.info("Setting the Scheduler up");
         for (JobConfig config : configs) {
             try {
                 Boolean flag = SchedulerUtil.createScheduler(config, applicationContext);
